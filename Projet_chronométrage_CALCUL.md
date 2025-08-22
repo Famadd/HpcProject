@@ -1,111 +1,77 @@
-**Projet chronométrage du temps de calcul du produit matriciel/addition matriciel/produit de Hadamard**
+# 🚀 Projet : Chronométrage des calculs matriciels (CPU & GPU)
 
-Le projet a pour but de produire des algorithmes visant à faire des opérations de calcul sur des matrices plus ou moins grandes, ainsi qu'à calculer leur temps d'exécution pour pouvoir les comparer.
+## 🎯 Objectif du projet
+Le but de ce projet est d’implémenter différents algorithmes de calcul de matrices carrées afin de **comparer leurs performances** sur CPU et GPU.  
+Les opérations testées sont :  
+- **Addition de matrices**  
+- **Produit matriciel**  
+- **Produit de Hadamard**  
 
+👉 Les temps d’exécution sont mesurés pour des matrices de taille croissante, afin d’évaluer l’impact de l’optimisation et du matériel utilisé.  
 
-Il se fera sous CPU dans un premier temps et sur GPU dans un second temps.
+Ce projet est une **initiation à l’informatique HPC** et à la **programmation parallèle** via l’API CUDA.  
 
-Ce projet est une sorte d'initiation à l'informatique HPC ainsi qu'à la programmation Multi-thread via l'API CUDA.
+---
 
+## 🖥️ Environnement et prérequis
+- **Langage :** C++20 et plus  
+- **Dépendances :**
+  - [CUDA Toolkit 13.0+](https://developer.nvidia.com/cuda-downloads)  
+  - `nvcc` (compilateur CUDA)  
+  - **cuBLAS** (inclus dans le CUDA Toolkit)  
 
-Vous pourrez voir le comparatif des performances des différents programmes **par rapport aux composants de mon ordinateur** au bas de ce README.
+---
 
-Le projet tourne sous C++20 et plus.
-Pour pouvoir compiler et exécuter ces programmes (Surtout pour la partie GPU), il vous faudra installer les dépendances suivantes :
+## ⚙️ Description des algorithmes
 
-    L'API CUDA Toolkit 13.0 et plus, incluant le compilateur nécessaire nvcc ainsi que cuBLAS.
+### **CPU**
+- **Algorithme 1 :** Implémentation naïve (non optimisée).  
+- **Algorithme 2 :** Implémentation linéaire avec **accès mémoire contigu** (optimisé CPU).  
 
+### **GPU**
+- **Algorithme 3 :** Implémentation linéaire avec **optimisation GPU CUDA**.  
 
+---
 
-Installation du CUDA Toolkit 13.0
-    https://developer.nvidia.com/cuda-downloads
+## 📊 Résultats expérimentaux
 
+### CPU (Intel i3-12100F, 32 Go RAM)
 
+#### Algorithme 1 (naïf)
+| Taille N×N | Produit matriciel | Addition | Hadamard |
+|------------|------------------:|---------:|----------:|
+| 1000       | 17.0654 s         | 0.01707 s | 0.01575 s |
+| 10000      | ~23660.4 s (~6h34m) | 1.56241 s | 1.57841 s |
 
-Passons au descriptif des algorithmes.
+#### Algorithme 2 (linéaire optimisé)
+| Taille N×N | Produit matriciel | Addition | Hadamard |
+|------------|------------------:|---------:|----------:|
+| 1000       | 0.01133 s         | 0.01121 s | 0.01113 s |
+| 10000      | 1.19419 s         | 1.14798 s | 1.15504 s |
 
-**CPU**
+---
 
+### GPU (NVIDIA GTX 1660 Super — TU116, 1408 cœurs CUDA, 6 Go VRAM)
 
-ALGORITHME 1 :
+#### Algorithme 3 (CUDA optimisé, cuBLAS, algorithme de tiling pour le produit de Hadamard)
+| Taille N×N | Produit matriciel | Addition | Hadamard |
+|------------|------------------:|---------:|----------:|
+| 1000       | 0.00489 s         | 0.00182 s | 0.00023 s |
+| 10000      | 0.64972 s         | 0.01178 s | 0.00953 s |
 
- 	Calculs matriciels (Addition/Produit matriciel/Produit de Hadamard) avec un algorithme naïf (càd non optimisé)
+---
 
+## ✅ Conclusion
+- L’algorithme naïf est **impraticable** pour de grandes tailles (ex. produit 10000×10000 prend **6h34m**).  
+- L’optimisation CPU réduit drastiquement le temps (de **6h34m → ~1.2s**) grâce à l'accession linéaires des données.  
+- Le GPU est encore plus performant pour les gros calculs, atteignant **0.65s** pour une matrice 10000×10000, avec la librairie optimisé cuBLAS.  
 
+⚡ **GPU >> CPU optimisé >> CPU naïf**  
+---
 
-ALGORITHME 2 :
+## 🔮 Améliorations possibles
+- Implémenter le **tiling** et le caching pour les kernels CUDA, utile pour les très grosses matrices (Impossible à stocker en mémoire).  
+- Implémenter une interface visuelle ergonomique comme QT.
+- Étendre aux matrices non carrées.
 
-    Calculs matriciels (Addition/Produit matriciel/Produit de Hadamard) avec un algorithme version linéaire, optimisé sur l'accession des données sur le CPU (accès contiguë des tableaux).
-
-
-
-**GPU**
-
-
-
-ALGORITHME 3 :
-
-    Calculs matriciels (Addition/Produit matriciel/Produit de Hadamard) avec un algorithme version linéaire, optimisé sur l'accession des données sur le GPU.
-
-
-
-**Partie CPU I3 12100f 32GO de RAM**
-
-
-
-ALGORITHME 1 :
-
-
-Matrice N\*N 			Avec N = 1000
-Temps de calcul (Produit matriciel) = 17.0654s
-Temps de calcul (Addition de matrice) = 0.0170739s
-Temps de calcul (Produit de Hadamard) = 0.0157567s
-
-
-
-Matrice N\*N 			Avec N = 10 000
-Temps de calcul (Produit matriciel) = 23660,4s ~= 6h34m
-Temps de calcul (Addition de matrice) = 1.56241s
-Temps de calcul (Produit de Hadamard) = 1.57841s
-
-
-
-ALGORITHME 2 :
-
-
-Matrice N\*N			Avec N = 1000
-Temps de calcul (Produit matriciel) = 0.0113341s
-Temps de calcul (Addition de matrice) = 0.0112113s
-Temps de calcul (Produit de Hadamard) = 0.0111302s
-
-
-
-Matrice N\*N			Avec N = 10000
-Temps de calcul (Produit matriciel) = 1.19419s
-Temps de calcul (Addition de matrice) = 1.14798s
-Temps de calcul (Produit de Hadamard) = 1.15504s
-
-
-**Partie GPU GTX 1660 Super TURING TU116 - 1408 Cœurs CUDA 6 Go VRAM**
-
-ALGORITHME 3 :
-
-
-Matrice N\*N			Avec N = 1000
-Temps de calcul (produit matriciel) = 0.00489494 s
-Temps de calcul (Addition de matrice) = 0.00181629 s
-Temps de calcul (Produit de Hadamard) = 0.000231424 s
-
-
-
-Matrice N\*N			Avec N = 10000
-Temps de calcul (produit matriciel) = 0.64972 s
-Temps de calcul (Addition de matrice) = 0.0117779 s
-Temps de calcul (Produit de Hadamard) = 0.00953139 s
-
-
-
-
-
-
-
+## 👉 N'hésitez pas à me faire des retours si vous pensez que cela puisse m'aider/être intéressant ! 
