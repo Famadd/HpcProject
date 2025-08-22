@@ -16,9 +16,15 @@ Ce projet est une **initiation à l’informatique HPC** et à la **programmatio
 ## 🖥️ Environnement et prérequis
 - **Langage :** C++20 et plus  
 - **Dépendances :**
+  - [CMake](https://cmake.org/download/)
   - [CUDA Toolkit 13.0+](https://developer.nvidia.com/cuda-downloads)  
   - `nvcc` (compilateur CUDA)  
   - **cuBLAS** (inclus dans le CUDA Toolkit)  
+
+## ⚡ Exécution du programme
+  - Placez vous dans le build d'un des deux dossiers TestsCPU/TestsGPU
+  - Entrez la commande *cmake..*
+  - Vous trouverez l'exécutable dans le dossier bin/
 
 ---
 
@@ -66,7 +72,7 @@ Ce projet est une **initiation à l’informatique HPC** et à la **programmatio
 - L’optimisation CPU réduit drastiquement le temps (de **6h34m → ~1.2s**) grâce à l'accession linéaires des données.  
 - Le GPU est encore plus performant pour les gros calculs, atteignant **0.65s** pour une matrice 10000×10000, avec la librairie optimisé cuBLAS.  
 
-⚡ **GPU >> CPU optimisé >> CPU naïf**  
+⏳ **GPU >> CPU optimisé >> CPU naïf**  
 ---
 
 ## 🔮 Améliorations possibles
