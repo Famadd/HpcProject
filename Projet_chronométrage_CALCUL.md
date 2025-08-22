@@ -76,8 +76,8 @@ Ce projet est une **initiation à l’informatique HPC** et à la **programmatio
 ---
 
 ## 🔮 Améliorations possibles
-- Implémenter le **tiling** et le caching pour les kernels CUDA, utile pour les très grosses matrices (Impossible à stocker en mémoire).  
-- Implémenter une interface visuelle ergonomique comme QT.
+- Implémenter le **tiling** et le **caching** pour les kernels CUDA, utile pour les très grosses matrices (Impossible à stocker en mémoire).  
+- Implémenter une interface visuelle ergonomique comme **QT**.
 - Étendre aux matrices non carrées.
 
 ## 👉 N'hésitez pas à me faire des retours si vous pensez que cela puisse m'aider/être intéressant ! 
