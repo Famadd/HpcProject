@@ -9,7 +9,7 @@ int main() {
     do{
         std::cout << "Programme comparatif entre algorithmes calculatoires d'operations sur matrices" << std::endl;
         std::cout << "Choissisez l'algorithme de calcul matriciel que vous voulez\n" << std::endl;
-        std::cout << "1 - Algorithme Optimise\n2 - Algorithme Non Optimise \n";
+        std::cout << "1 - Algorithme Non optimise\n2 - Algorithme Optimise \n";
         std::cin >> choix;
     } while( choix != 1 && choix != 2 );
     do{
@@ -21,25 +21,25 @@ int main() {
     
 
     if(choix == 1){
-        std::cout << "Calcul Matriciel optimise ---------------------------" << std::endl;
+        std::cout << "Calcul Matriciel non optimise ---------------------------" << std::endl;
 
-        optimisedMatricialProductTime(taille, 0, 25);
-        optimisedMatricialAdditionTime(taille, 0, 2500.250f);
-        optimisedMatricialHadamardProductTime(taille, 0 ,10000.150);
+        nonOptimisedMatricialProductTime(taille, 0, 25);
+        nonOptimisedMatricialAdditionTime(taille, 0, 2500.250f);
+        nonOptimisedMatricialHadamardProductTime(taille, 0 ,10000.150);
 
-        std::cout << "\nFin Calcul Matriciel optimise ---------------------------" << std::endl;
+        std::cout << "\nFin Calcul Matriciel non optimise ---------------------------" << std::endl;
     }
 
     if(choix == 2){
-        std::cout << "Calcul Matriciel non optimise ---------------------------" << std::endl;
+        std::cout << "Calcul Matriciel optimise ---------------------------" << std::endl;
         
-        nonOptimisedMatricialProductTime(taille, 0, 25);
+        optimisedMatricialProductTime(taille, 0, 25);
 
-        nonOptimisedMatricialAdditionTime(taille, 0, 2500.250f);
+        optimisedMatricialAdditionTime(taille, 0, 2500.250f);
 
-        nonOptimisedMatricialHadamardProductTime(taille, 0 ,15000.150);
+        optimisedMatricialHadamardProductTime(taille, 0 ,15000.150);
 
-        std::cout << "Fin Calcul Matriciel non optimise ---------------------------" << std::endl;
+        std::cout << "Fin Calcul Matriciel optimise ---------------------------" << std::endl;
     }
 
     return 0;
